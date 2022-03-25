@@ -1,9 +1,9 @@
 package com.example.colosseum_yun.utils
 
-import okhttp3.FormBody
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import android.util.Log
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 class ServerUtil {
 //    어떤 내용을 작성해야 서버 연결 전달 되는지 알아보자
@@ -45,9 +45,31 @@ class ServerUtil {
 
             val client = OkHttpClient()
 
-//            실제로 서버에 요청 날리기
+//            실제로 서버에 요청 날리기. = > 갔다 와서는 뭘 할건지?/할 일은 {} 안에 있음
 
-                client.newCall(request)
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+//                        서버 연결 자체를 실패 한 경우(서버 마비, 인터넷 단선)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+
+//                        로그인 성공, 로그인 실패 (연결 성공 - > 검사실패)
+//                        응답이 돌아온 경우
+
+
+//                        응답 본문을 String으로 저장
+                        val bodyString = response.body!!.string()
+
+//                        그런데 나오는 로그캣이 bodyString 변수에는 한글이 깨져 나오기 때문에
+//                        JSONObject로 변환하면, 한글이 정상적으로 처리됨
+
+                        val jsonObj = JSONObject(bodyString)
+
+                       Log.d("응답본문", jsonObj.toString())
+                    }
+
+                })
         }
 
     }
