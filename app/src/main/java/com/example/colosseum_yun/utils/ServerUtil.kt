@@ -2,6 +2,7 @@ package com.example.colosseum_yun.utils
 
 import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -143,6 +144,28 @@ class ServerUtil {
             })
         }
 
+
+//       이메일 / 닉네임 중복 확인 기능
+
+        fun getRequestDuplCheck(type : String, value : String, handler: JsonResponseHandler?) {
+
+//            어디로 가는가? + 어떤 데이터를(타입이나 밸류) 보내는가? 를 같이 보내준다.
+//            URL을 적으면서 + 파라미터 첨부도 같이 보내기 힘들기 때문에 => 보조도구인 builder사용.
+
+//            val urlBuilder = HttpUrl.parse("${BASE_URI}/user_check")까지 입력하면
+//            parse에 에러가 뜨는데 alt+enter 누르고 맨 위의 것으로 고르면 모양이 바뀜.
+
+            val urlBuilder = "${BASE_URI}/user_check".toHttpUrlOrNull()!!.newBuilder()
+//            어디로 가는지는 완성. 어느서버/ 어느 기능으로 가는지가 정해짐.
+//            urlBuilder는 url가공보조도구임
+            urlBuilder.addEncodedQueryParameter("type", type)
+            urlBuilder.addEncodedQueryParameter("value", value)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("완성된URL", urlString)
+
+        }
 
     }
 }

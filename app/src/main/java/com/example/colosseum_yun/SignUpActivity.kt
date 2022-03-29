@@ -1,6 +1,6 @@
 package com.example.colosseum_yun
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.widget.Toast
 import com.example.colosseum_yun.utils.ServerUtil
@@ -18,6 +18,21 @@ class SignUpActivity : BaseActivity() {
         setValues()
     }
     override fun setupEvents() {
+
+        emailCheckBtn.setOnClickListener {
+
+//            입력한 이메일? => 중복 검사
+            val inputEmail = email_edt.text.toString()
+
+//            서버에 중복여부 확인, APT호출
+//            서버유틸에서 중복체크 작업이 끝난 뒤 가능해짐.
+            ServerUtil.getRequestDuplCheck("EMAIL", inputEmail, object : ServerUtil.Companion.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+                }
+
+            })
+        }
         signUp_btn.setOnClickListener {
 
             val inputEmail = email_edt.text.toString()
@@ -40,7 +55,7 @@ class SignUpActivity : BaseActivity() {
 
                         val nickname = userObj.getString("nick_name")
 
-                        runOnUiThread { Toast.makeText(mContext,"${nickname}", Toast.LENGTH_SHORT).show()
+                        runOnUiThread { Toast.makeText(mContext,"${nickname}님 환영합니다", Toast.LENGTH_SHORT).show()
                         finish()
                         }
 
