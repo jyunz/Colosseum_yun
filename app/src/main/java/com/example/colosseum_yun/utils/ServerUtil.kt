@@ -45,7 +45,7 @@ class ServerUtil {
                 .post(formData)
                 .build()
 
-//            클라이언트로써의 동작. : Request 요청 실행  => OkHttp 라이브러리 지원.
+//            클라이언트로써의 동작 : Request 요청 실행  => OkHttp 라이브러리 지원.
 
             val client = OkHttpClient()
 
