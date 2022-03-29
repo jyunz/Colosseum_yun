@@ -17,6 +17,7 @@ class SignUpActivity : BaseActivity() {
         setupEvents()
         setValues()
     }
+
     override fun setupEvents() {
 
         emailCheckBtn.setOnClickListener {
