@@ -1,5 +1,6 @@
 package com.example.colosseum_yun.utils
 
+import android.content.Context
 import android.util.Log
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -196,5 +197,50 @@ class ServerUtil {
         }
 //          post나 put은 formdata에다 데이타를 담아준다
 //        get은 url을 만들때 쿼리파라미터를 이용
+
+//        진행중인 주제 목록 확인기능
+
+        fun getRequestMainInfo(context: Context, handler: JsonResponseHandler?) {
+
+            val urlBuilder = "${BASE_URI}/v2/main_info".toHttpUrlOrNull()!!.newBuilder()
+
+//            urlBuilder.addEncodedQueryParameter("type", type)
+//            urlBuilder.addEncodedQueryParameter("value", value)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("완성된URL", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+//                   성공했을 때 본문 내용 분석해서 화면에서 사용 할 것.
+                    var bodyString = response.body!!.string()
+
+//                    로그 찍으면 잘 안나와서 잘 보이게 큰 덩어리를 불러옴.
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+
+//                  재료로 받아오는 핸들러한테 넘겨줌
+
+                    handler?.onResponse(jsonObj)
+
+                }
+
+
+
+            })
+
+        }
     }
 }
