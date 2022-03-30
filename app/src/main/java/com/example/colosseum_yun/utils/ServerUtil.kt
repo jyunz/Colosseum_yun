@@ -194,6 +194,7 @@ class ServerUtil {
             })
 
         }
-
+//          post나 put은 formdata에다 데이타를 담아준다
+//        get은 url을 만들때 쿼리파라미터를 이용
     }
 }
