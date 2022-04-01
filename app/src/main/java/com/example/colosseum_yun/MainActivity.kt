@@ -2,13 +2,17 @@ package com.example.colosseum_yun
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.colosseum_yun.adapter.TopicAdapter
 import com.example.colosseum_yun.datas.Topic
 import com.example.colosseum_yun.utils.ServerUtil
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
     val mTopicList = ArrayList<Topic>()
+
+    lateinit var mTopicAdapter : TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,9 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
 
         getTopicListFromServer()
+
+        mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
+        topicListview.adapter = mTopicAdapter
     }
 
     fun getTopicListFromServer() {
@@ -52,6 +59,13 @@ class MainActivity : BaseActivity() {
 //                      mTopicList에 추가
 
                     mTopicList.add(topicData)
+
+                }
+
+//                어댑터가 먼저 세팅되고 => 나중에 목록에 추가 => 새로고침 필요 (UI 영향)
+
+                runOnUiThread {
+                    mTopicAdapter.notifyDataSetChanged()
                 }
             }
 
