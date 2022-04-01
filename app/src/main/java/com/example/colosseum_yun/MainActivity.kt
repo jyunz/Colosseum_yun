@@ -1,5 +1,6 @@
 package com.example.colosseum_yun
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.colosseum_yun.adapter.TopicAdapter
@@ -24,6 +25,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        topicListview.setOnItemClickListener { parent, view, position, id ->
+
+            val clickedTopic = mTopicList[position]
+
+            val myIntent = Intent(mContext, ViewTopicDetailActivity::class.java)
+            myIntent.putExtra("topic", clickedTopic)
+            startActivity(myIntent)
+        }
     }
 
     override fun setValues() {
