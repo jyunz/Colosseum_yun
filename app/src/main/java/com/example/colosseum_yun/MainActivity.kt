@@ -41,13 +41,18 @@ class MainActivity : BaseActivity() {
 //                배열에 10개 주제  : Index ->  0~9까지
 //                     또는 15개다 :           0~14 까지
 
-                for (index in 0 until topicsArr.length() ) {
+                for (index in 0 until topicsArr.length()) {
 //                    index 위치에 맞는 주제들을  Topic 클래스 형태로 변환
 
 //                    json 파싱
 
+                    val topicObj = topicsArr.getJSONObject(index)
+                    val topicData = Topic.getTopicDataFromJson(topicObj)
+
 //                      mTopicList에 추가
 
+                    mTopicList.add(topicData)
+                }
             }
 
         })
