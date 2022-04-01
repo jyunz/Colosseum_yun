@@ -242,5 +242,49 @@ class ServerUtil {
             })
 
         }
+
+//        원하는 주제 상세현황 확인 기능
+
+        fun getRequestTopicDetail(context: Context,topicId : Int, handler: JsonResponseHandler?) {
+
+//            val urlBuilder = "${BASE_URI}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()를 쓰거나
+            val urlBuilder = "${BASE_URI}/topic".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedPathSegment(topicId.toString())
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("완성된URL", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+//                   성공했을 때 본문 내용 분석해서 화면에서 사용 할 것.
+                    var bodyString = response.body!!.string()
+
+//                    로그 찍으면 잘 안나와서 잘 보이게 큰 덩어리를 불러옴.
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+
+//                  재료로 받아오는 핸들러한테 넘겨줌
+
+                    handler?.onResponse(jsonObj)
+
+                }
+
+
+
+            })
+
+        }
     }
 }
