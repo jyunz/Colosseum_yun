@@ -41,6 +41,16 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         }
 
+//        두번째 진영 투표 한번 생각해보고 코딩하기
+        voteToSecondSideBtn.setOnClickListener {
+            ServerUtil.postRequestVote(mContext, mTopic.sides[1].id, object : ServerUtil.Companion.JsonResponseHandler{
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    getTopicDetailFromServer()
+                }
+            })
+        }
+
     }
 
     override fun setValues() {
