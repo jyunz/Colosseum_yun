@@ -30,7 +30,11 @@ class ViewTopicDetailActivity : BaseActivity() {
             ServerUtil.postRequestVote(mContext, mTopic.sides[0].id, object : ServerUtil.Companion.JsonResponseHandler {
                 override fun onResponse(jsonObj: JSONObject) {
 
-//               서버응답 대응
+//               서버응답 대응 => 서버에서 최신 투표 현황을 받아서 다시 UI에 반영.
+//                    만들어둔 함수 재활용
+
+                    getTopicDetailFromServer()
+
 
                 }
             })
@@ -71,8 +75,8 @@ class ViewTopicDetailActivity : BaseActivity() {
                         firstSideTxt.text = mTopic.sides[0].title
                         firstSideVoteCountTxt.text = "${mTopic.sides[0].voteCount}표"
 
-                        secondSideTxt.text = mTopic.sides[0].title
-                        secondSideVoteCountTxt.text = "${mTopic.sides[0].voteCount}표"
+                        secondSideTxt.text = mTopic.sides[1].title
+                        secondSideVoteCountTxt.text = "${mTopic.sides[1].voteCount}표"
 
                     }
 
