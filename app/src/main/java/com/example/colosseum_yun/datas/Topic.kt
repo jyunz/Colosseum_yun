@@ -16,6 +16,7 @@ class Topic : Serializable {
 //        적당한 JSONObj(모양) 하나를 넣어주면 => Topic 형태로 변환해주는 함수 작성.
 
         fun  getTopicDataFromJson (jsonObj : JSONObject) : Topic {
+
             val resultTopic = Topic()
 
             resultTopic.id = jsonObj.getInt("id")

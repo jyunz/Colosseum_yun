@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/topicTitleTxtd"
+                android:id="@+id/topicTitleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="토론 주제 자리"
@@ -68,6 +68,12 @@
                        android:textSize="16sp"
                         android:textColor="@color/white" />
 
+                    <Button
+                        android:id="@+id/voteToFirstSideBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="투표하기"/>
+
                 </LinearLayout>
 
                 <TextView
@@ -98,6 +104,12 @@
                         android:layout_height="wrap_content"
                         android:text="10표"
                         android:textColor="@color/white"/>
+
+                    <Button
+                        android:id="@+id/voteToSecondSideBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="투표하기"/>
 
                 </LinearLayout>
 

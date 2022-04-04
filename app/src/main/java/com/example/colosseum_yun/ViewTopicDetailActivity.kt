@@ -20,15 +20,37 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
     override fun setupEvents() {
 
+        voteToFirstSideBtn.setOnClickListener {
+
+//            API 확인 -> 토큰 (ContextUtil) + 어떤진영 선택? ( 해당진영의 id값)
+
+//            mTopic.sides[0].id 어느 아이디가 선택했는지 알수있다.=> 서버에 들어가야 한다는 말임.
+//            그래서 serverUtil로 가서 작업. postRequestVote
+
+            ServerUtil.postRequestVote(mContext, mTopic.sides[0].id, object : ServerUtil.Companion.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+//               서버응답 대응
+
+                }
+            })
+
+        }
+
     }
 
     override fun setValues() {
+
         mTopic = intent.getSerializableExtra("topic") as Topic
 
-        topicTitleTxtd.text = mTopic.title
+        topicTitleTxt.text = mTopic.title
         Glide.with(mContext).load(mTopic.imageURL).into(topicImgD)
 
 //        현재 투표 현황을 다시 서버에서 받아오자.
+        getTopicDetailFromServer()
+
+    }
+
         fun getTopicDetailFromServer() {
 
             ServerUtil.getRequestTopicDetail(mContext, mTopic.id, object : ServerUtil.Companion.JsonResponseHandler {
@@ -59,7 +81,7 @@ class ViewTopicDetailActivity : BaseActivity() {
             })
         }
 
-    }
+
 
 
 }
