@@ -3,6 +3,8 @@ package com.example.colosseum_yun
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.example.colosseum_yun.adapter.ReplyAdapter
+import com.example.colosseum_yun.datas.Reply
 import com.example.colosseum_yun.datas.Topic
 import com.example.colosseum_yun.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
@@ -10,6 +12,9 @@ import org.json.JSONObject
 
 class ViewTopicDetailActivity : BaseActivity() {
     lateinit var mTopic : Topic
+
+    val mReplyList = ArrayList<Reply>()
+    lateinit var mReplyAdapter: ReplyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +65,9 @@ class ViewTopicDetailActivity : BaseActivity() {
         topicTitleTxt.text = mTopic.title
         Glide.with(mContext).load(mTopic.imageURL).into(topicImgD)
 
+        mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item, mReplyList)
+        replyListView.adapter = mReplyAdapter
+
 //        현재 투표 현황을 다시 서버에서 받아오자.
         getTopicDetailFromServer()
 
@@ -77,6 +85,17 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                     mTopic = topic
 
+//                    topicObj 내부의 replies JSONArray 파싱 => 의견 목록에 담아주자.
+
+                    val replyArr = topicObj.getJSONArray("replies")
+
+                    for (i in 0 until replyArr.length()) {
+
+                        val replyObj = replyArr.getJSONObject(i)
+                        val reply = Reply.getReplyFromJson(replyObj)
+                        mReplyList.add(reply)
+                    }
+
 //                    최신 득표현황까지 받아서 mTopic에 저장됨.
 //                    UI에 득표 현황 반영.
 
@@ -87,6 +106,9 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                         secondSideTxt.text = mTopic.sides[1].title
                         secondSideVoteCountTxt.text = "${mTopic.sides[1].voteCount}표"
+
+//                        댓글 목록 새로 고침(어댑터를 붙여서 고쳐 줘야 새로고침 됨)
+                        mReplyAdapter.notifyDataSetChanged()
 
                     }
 

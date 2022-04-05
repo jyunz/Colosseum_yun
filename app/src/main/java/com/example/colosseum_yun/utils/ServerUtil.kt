@@ -250,6 +250,7 @@ class ServerUtil {
 //            val urlBuilder = "${BASE_URI}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()를 쓰거나
             val urlBuilder = "${BASE_URI}/topic".toHttpUrlOrNull()!!.newBuilder()
             urlBuilder.addEncodedPathSegment(topicId.toString())
+            urlBuilder.addEncodedQueryParameter("oder_type","NEW")
 
             val urlString = urlBuilder.build().toString()
 
