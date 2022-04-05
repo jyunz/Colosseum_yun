@@ -1,10 +1,13 @@
 package com.example.colosseum_yun
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.colosseum_yun.adapter.ReplyAdapter
 import com.example.colosseum_yun.datas.Reply
+import com.example.colosseum_yun.datas.Side
 import com.example.colosseum_yun.datas.Topic
 import com.example.colosseum_yun.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
@@ -16,6 +19,10 @@ class ViewTopicDetailActivity : BaseActivity() {
     val mReplyList = ArrayList<Reply>()
     lateinit var mReplyAdapter: ReplyAdapter
 
+//    내가 선택한 진영이 어디인지? 투표를 안한상태일수도 있으므로 (= null) ?를 붙임
+    var mySelectedSide : Side? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_topic_detail)
@@ -24,6 +31,23 @@ class ViewTopicDetailActivity : BaseActivity() {
         setupEvents()
     }
     override fun setupEvents() {
+        
+        writeReplyBtn.setOnClickListener { 
+            
+//            만약 선택된 진영이 없다면 , 투표부터 하도록
+            
+            if (mySelectedSide == null) {
+                Toast.makeText(mContext, "투표를 한 이후에만 의견을 등록할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+//                의견작성 화면으로 이동.
+                val myIntent = Intent(mContext, EditReplyActivity::class.java)
+                myIntent.putExtra("mySide", mySelectedSide)
+                startActivity(myIntent)
+
+//                이제 editReply에서 사용 가능해 짐.
+            }
+        }
 
         voteToFirstSideBtn.setOnClickListener {
 
@@ -94,7 +118,20 @@ class ViewTopicDetailActivity : BaseActivity() {
                         val replyObj = replyArr.getJSONObject(i)
                         val reply = Reply.getReplyFromJson(replyObj)
                         mReplyList.add(reply)
+
                     }
+
+//                    내가 선택한 진영이 있다면 => 파싱해서 mySelectedSide 에 담아주자.
+//                    topicObj 내부의 my_side 를 추출 => null  이 아닐때만 추출.
+                    
+//                    mySelectedSide 를 클리어 해줌
+                    mySelectedSide = null
+                    if(!topicObj.isNull("my_side")){
+                        val mySideObj = topicObj.getJSONObject("my_side")
+                        val mySide = Side.getSideFromJson(mySideObj)
+                        mySelectedSide = mySide
+                    }
+//                    ㄴ이거 끝내고 setUpEvent가서  writeReplyBtn.setOnClickListener 설정.
 
 //                    최신 득표현황까지 받아서 mTopic에 저장됨.
 //                    UI에 득표 현황 반영.
