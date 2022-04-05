@@ -10,6 +10,14 @@ class Reply {
 
     var writerNickname = ""
 
+    var writeNickname = ""
+
+    var likeCount = 0
+    var dislikeCount = 0
+
+    var myLike = false
+    var myDislike = false
+
     companion object {
 
         fun getReplyFromJson(jsonObject: JSONObject) : Reply {
@@ -22,6 +30,12 @@ class Reply {
             resultReply.selectedSide = Side.getSideFromJson(jsonObject.getJSONObject("selected_side"))
 
             resultReply.writerNickname = jsonObject.getJSONObject("user").getString("nick_name")
+
+            resultReply.likeCount = jsonObject.getInt("like_count")
+            resultReply.dislikeCount = jsonObject.getInt("dislike_count")
+
+            resultReply.myLike = jsonObject.getBoolean("my_like")
+            resultReply.myDislike = jsonObject.getBoolean("my_dislike")
             return resultReply
         }
     }
