@@ -97,7 +97,14 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     }
 
-        fun getTopicDetailFromServer() {
+//    게시판을 돌아다니면서 화면이 바뀔때마다 업뎃해주는 기능
+    override fun onResume() {
+        super.onResume()
+
+        getTopicDetailFromServer()
+    }
+
+    fun getTopicDetailFromServer() {
 
             ServerUtil.getRequestTopicDetail(mContext, mTopic.id, object : ServerUtil.Companion.JsonResponseHandler {
                 override fun onResponse(jsonObj: JSONObject) {
@@ -123,7 +130,7 @@ class ViewTopicDetailActivity : BaseActivity() {
 
 //                    내가 선택한 진영이 있다면 => 파싱해서 mySelectedSide 에 담아주자.
 //                    topicObj 내부의 my_side 를 추출 => null  이 아닐때만 추출.
-                    
+
 //                    mySelectedSide 를 클리어 해줌
                     mySelectedSide = null
                     if(!topicObj.isNull("my_side")){
