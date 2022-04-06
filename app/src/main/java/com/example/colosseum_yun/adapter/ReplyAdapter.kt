@@ -1,6 +1,7 @@
 package com.example.colosseum_yun.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,38 @@ class ReplyAdapter(
 
         likeCountBtn.text = "좋아요 ${data.likeCount}개"
         disLikeCountBtn.text = "싫어요 ${data.dislikeCount}개"
+
+        if (data.myLike) {
+
+//            like 면 글씨를 빨간색 + 배경도 빨간 테두리가 나와야 한다는 뜻임. ->싫어요 -> 회색
+
+            likeCountBtn.setBackgroundResource(R.drawable.red_border_box)
+            likeCountBtn.setTextColor(Color.parseColor("#FF0000"))
+
+            disLikeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+            disLikeCountBtn.setTextColor(Color.parseColor("#A0A0A0"))
+
+        }
+        else if (data.myDislike) {
+
+//            글씨가 파랑 배경도 파랑 , 좋아요 -> 회색
+
+            likeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+            likeCountBtn.setTextColor(Color.parseColor("#A0A0A0"))
+
+            disLikeCountBtn.setBackgroundResource(R.drawable.blue_border_box)
+            disLikeCountBtn.setTextColor(Color.parseColor("#0000FF"))
+
+        }
+        else {
+//                좋아요 / 싫어요를 찍지 않은 상태.-> 둘다 회색
+
+            likeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+            likeCountBtn.setTextColor(Color.parseColor("#A0A0A0"))
+
+            disLikeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+            disLikeCountBtn.setTextColor(Color.parseColor("#A0A0A0"))
+        }
         
 //        좋아요 API호출
         
