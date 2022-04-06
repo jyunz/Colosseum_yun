@@ -56,19 +56,23 @@
                 android:id="@+id/likeCountBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:clickable="true"
+                android:background="@drawable/red_border_box"
+                android:padding="10dp"
+                android:textColor="#FF0000"
                 android:text="좋아요 n개" />
 
             <TextView
                 android:id="@+id/dislikeCountBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:clickable="true"
+                android:background="@drawable/blue_border_box"
+                android:padding="10dp"
+                android:textColor="#0000FF"
                 android:text="싫어요 m개"/>
         </LinearLayout>
 
-
     </LinearLayout>
-
 </LinearLayout>
