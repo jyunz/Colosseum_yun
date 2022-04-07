@@ -14,6 +14,7 @@
         android:textSize="20sp"/>
 
     <ImageView
+        android:id="@+id/backBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
