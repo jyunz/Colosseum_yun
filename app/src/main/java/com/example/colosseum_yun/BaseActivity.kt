@@ -1,5 +1,6 @@
 package com.example.colosseum_yun
 
+import android.os.Bundle
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,14 @@ abstract class BaseActivity :AppCompatActivity() {
     abstract fun setValues()
 //      abstract fun 은 중괄호를 안달고 나중에 구현.
 //    일반 fun 은 바로 뭘 할지 구현
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setCustomActionBar()
+
+
+    }
 
 //      액션바 커스텀
 
