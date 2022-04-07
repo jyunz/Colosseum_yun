@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "974750545052",
+    "project_id": "colosseum-yun",
+    "storage_bucket": "colosseum-yun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974750545052:android:c1b64e8d0c15a82b96e959",
+        "android_client_info": {
+          "package_name": "com.example.colosseum_yun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974750545052-lclihfsldklfqbqvb58ln1ihlheq8rer.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDGmY8uWLEiuDlFKoqhGCLDYd8MJBmqDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974750545052-lclihfsldklfqbqvb58ln1ihlheq8rer.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
