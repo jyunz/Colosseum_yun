@@ -2,9 +2,9 @@ package com.example.colosseum_yun
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 abstract class BaseActivity :AppCompatActivity() {
 
@@ -19,9 +19,11 @@ abstract class BaseActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setCustomActionBar()
-
+//        액션바가 있는 화면만 커스텀 액션바 세팅 실행
+//        null체크
+        supportActionBar?.let {
+            setCustomActionBar()
+        }
 
     }
 
