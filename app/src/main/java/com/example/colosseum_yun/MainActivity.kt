@@ -3,7 +3,9 @@ package com.example.colosseum_yun
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.colosseum_yun.adapter.TopicAdapter
+import com.example.colosseum_yun.datas.Side
 import com.example.colosseum_yun.datas.Topic
 import com.example.colosseum_yun.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,6 +44,9 @@ class MainActivity : BaseActivity() {
 
         mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
         topicListview.adapter = mTopicAdapter
+
+//          메인첫화면에서는 BaseActivity 가 물려준 백 버튼을 숨김처리 하고 싶다.
+        backBtn.visibility = View.GONE
     }
 
     fun getTopicListFromServer() {
